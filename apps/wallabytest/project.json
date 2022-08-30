@@ -1,0 +1,95 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/wallabytest/src",
+  "prefix": "wallaby-test",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/wallabytest",
+        "index": "apps/wallabytest/src/index.html",
+        "main": "apps/wallabytest/src/main.ts",
+        "polyfills": "apps/wallabytest/src/polyfills.ts",
+        "tsConfig": "apps/wallabytest/tsconfig.app.json",
+        "assets": [
+          "apps/wallabytest/src/favicon.ico",
+          "apps/wallabytest/src/assets"
+        ],
+        "styles": ["apps/wallabytest/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/wallabytest/src/environments/environment.ts",
+              "with": "apps/wallabytest/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "wallabytest:build:production"
+        },
+        "development": {
+          "browserTarget": "wallabytest:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/wallabytest/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "wallabytest:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/wallabytest/**/*.ts",
+          "apps/wallabytest/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/wallabytest"],
+      "options": {
+        "jestConfig": "apps/wallabytest/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
